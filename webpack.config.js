@@ -3,16 +3,21 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const config = {
-  entry: './index.js',
-  output: {
-    filename: 'quill-emoji.js',
-    path: path.resolve(__dirname, 'dist'),
-    library: "QuillEmoji",
-    libraryTarget: "umd"
+  entry: {
+      'quill-emoji.js': './src/quill-emoji.js',
+      'quill-emoji-style.css': './src/scss/quill-emoji.scss'
   },
-  mode: "development",
+  output: {
+    filename: '[name]',
+    library: "QuillEmoji",
+    libraryExport: 'default',
+    libraryTarget: "umd",
+    path: path.resolve(__dirname, 'dist')
+  },
+  mode: "production",
   externals: {
     quill: 'Quill',
+    fuse: 'fuse'
   },
   devtool: 'source-map',
   module: {
@@ -21,11 +26,10 @@ const config = {
       include: [
         path.resolve(__dirname, "src/")
       ],
-      exclude: /(node_modules)/,
       use: {
         loader: 'babel-loader',
         options: {
-          presets: [['env', {modules: false}],]
+          presets: ['es2015']
         }
       }
     }, {
