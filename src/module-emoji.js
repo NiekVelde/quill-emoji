@@ -206,10 +206,11 @@ class ShortNameEmoji extends Module {
       this.container.appendChild(li);
       buttons[i] = li.firstChild;
       // Events will be GC-ed with button on each re-render:
-      buttons[i].addEventListener('keydown', handler(i, emoji, this));
-      buttons[i].addEventListener("mousedown", () => this.close(emoji));
-      buttons[i].addEventListener("focus", () => this.focusedButton = i);
-      buttons[i].addEventListener("unfocus", () => this.focusedButton = null);
+      var self = this;
+      buttons[i].addEventListener('keydown', handler(i, emoji, self));
+      buttons[i].addEventListener("mousedown", function(){self.close(emoji)});
+      buttons[i].addEventListener("focus", function(){self.focusedButton = i});
+      buttons[i].addEventListener("unfocus", function(){self.focusedButton = null});
     });
 
     this.container.style.display = "block";
