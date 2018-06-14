@@ -10,7 +10,7 @@ const config = {
     library: "QuillEmoji",
     libraryTarget: "umd"
   },
-  mode: "production",
+  mode: "development",
   externals: {
     quill: 'Quill',
   },
@@ -52,24 +52,6 @@ const config = {
     }]
   },
   plugins: [
-    new UglifyJSPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          join_vars: true,
-          if_return: true
-        },
-        output: {
-          comments: false
-        }
-      }
-    }),
     new MiniCssExtractPlugin({
       filename: "quill-emoji.css",
       chunkFilename: "[id].css"
